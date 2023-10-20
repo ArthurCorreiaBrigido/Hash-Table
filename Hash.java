@@ -42,10 +42,10 @@ public class Hash {
 
 
     public Aluno search(int matricula) {
-        int key = hashFunc(new Aluno(matricula)); // Criamos um objeto temporário apenas para calcular a hash
+        int key = hashFunc(new Aluno(matricula));
         for (int i = 0; i < MAX_TRIES; i++) {
             if (structure[key] != null && structure[key].getValue().getMatricula() == matricula) {
-                return structure[key].getValue(); // Retorna o objeto Aluno encontrado
+                return structure[key].getValue();
             }
             key = (key + 1) % max_positions;
         }
@@ -53,15 +53,15 @@ public class Hash {
     }
 
     private Aluno searchInBucket(int matricula) {
-        int key = hashFunc(new Aluno(matricula)); // Criamos um objeto temporário apenas para calcular a hash
+        int key = hashFunc(new Aluno(matricula));
         HashNode currentNode = structure[key];
         while (currentNode != null) {
             if (currentNode.getValue().getMatricula() == matricula) {
-                return currentNode.getValue(); // Retorna o objeto Aluno encontrado
+                return currentNode.getValue();
             }
             currentNode = currentNode.getNext();
         }
-        return null; // Retorna null se o aluno não foi encontrado
+        return null;
     }
 
     public boolean delete(Aluno aluno) {
@@ -109,10 +109,6 @@ public class Hash {
     private int hashFunc(Aluno aluno) {
         return (aluno.getMatricula() % max_positions);
 
-    }
-
-    public boolean isFull() {
-        return (quant_itens == max_itens);
     }
 
 }
