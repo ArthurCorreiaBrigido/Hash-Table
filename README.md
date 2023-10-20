@@ -1,4 +1,4 @@
-![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/ad39c312-628e-4649-a8d3-1b1c0c44dfe9)PjBL3 - Hash Table (Arthur Correia Brígido)
+PjBL3 - Hash Table (Arthur Correia Brígido)
 
 A aplicação demonstra o funcionamento de uma tabela Hash. O algoritmo é composto por funções de busca, inserção, exlusão e impressão dos elementos. A tabela Hash é uma tabela de espalhamento que associa chaves de pesquisa a valores. Ela faz uma busca a partir de uma chave simples e obtem um valor desejado.
 
@@ -6,7 +6,7 @@ A aplicação demonstra o funcionamento de uma tabela Hash. O algoritmo é compo
 
   1. "insert" : insere um aluno na tabela hash (sondagem linear). 
   
-  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/f103669d-80c1-4413-87da-6cb76282bfe8)
+  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/0b08db41-296e-47c9-a91d-79d69a8e2c88)
 
   1.1. "insert auxiliar" : insere o aluno em uma posição vazia na tabela principal. Se todas as posições principais estiverem ocupadas, tenta inserir o aluno em uma lista encadeada (bucket) associada à posição da chave original.
   
@@ -14,11 +14,11 @@ A aplicação demonstra o funcionamento de uma tabela Hash. O algoritmo é compo
 
   1.2. "insertInBucket" : insere um aluno na tabela hash (encadeamento). Se a posição estiver vazia, o aluno é inserido diretamente. Caso contrário, o código percorre a lista encadeada até encontrar o final e, em seguida, insere o aluno.
 
-  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/e985e7ba-bc26-4230-b451-84e0e1aa65af)
+  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/6721f060-7c24-4c71-b3ba-c7c19b1a3cc0)
 
   2. "delete": permite remover um aluno da tabela hash (sondagem linear).
 
-  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/76044647-eaeb-4037-b040-9758cccf01b5)
+  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/82a6de3d-8b5d-4fb1-850c-13276f568d31)
 
   2.1. "delete auxiliar" : Busca e deleta um aluno com base em uma chave dada na tabela principal. Se não encontrado na tabela principal, busca e deleta o aluno no bucket associado.
 
@@ -26,7 +26,7 @@ A aplicação demonstra o funcionamento de uma tabela Hash. O algoritmo é compo
 
   2.2. "deleteInBucket" : permite remover um aluno da tabela hash (encadeamento). Ele verifica o nó na posição dada e os nós subsequentes na lista encadeada para encontrar e remover o aluno.
 
-  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/4455772b-724a-4e08-98d7-8579f9b21693)
+  ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/e2fccd16-3a59-4948-87ac-d7e17f612997)
 
   3. "search": permite a realização de uma busca por um aluno na tabela hash
 
