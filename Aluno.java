@@ -1,7 +1,7 @@
 package TabelaHash;
 
 public class Aluno {
-    private int matricula; // Declara uma variável privada chamada matricula que representa o número de matrícula do aluno.
+    private final int matricula; // Declara uma variável privada chamada matricula que representa o número de matrícula do aluno.
 
     public Aluno(){ // construtor padrão da classe Aluno, que não aceita argumentos.
         // Este construtor é chamado quando você cria uma instância da classe Aluno sem especificar uma matrícula.

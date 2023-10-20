@@ -5,25 +5,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Programa gerador de Hash!");
-
-        Scanner scanner = new Scanner(System.in); // objeto do tipo "Scanner" chamado "scanner" para ler a entrada do usuário a partir do terminal.
-
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o tamanho da Hash:");
-        int vector_size = scanner.nextInt(); //  objeto "scanner" para ler um número inteiro digitado pelo usuário e atribui-se o valor à variável "vector_size",
-        // que representa o tamanho da tabela hash.
-
+        int vector_size = scanner.nextInt();
         System.out.println("Digite o número máximo de elementos:");
-        int max = scanner.nextInt(); // Lê um número inteiro digitado pelo usuário e atribui o valor à variável max, que representa o número máximo de elementos.
-
+        int max = scanner.nextInt();
         System.out.println("O fator de carga e: " + (float) max / (float) vector_size);
-
-        Hash alunohash = new Hash(vector_size, max);  // Cria um objeto da classe "Hash" chamado "alunohash", usando os valores de "vector_size" e "max" para
-        // inicializar a tabela hash.
-
-        int option; // Declara uma variável option para armazenar a opção escolhida pelo usuário no menu.
-        int matricula; // Declara uma variável matricula para armazenar a matrícula do aluno.
-
-        do { // Início de um loop do-while que continuará até que a opção escolhida seja 0 (para sair).
+        Hash alunohash = new Hash(vector_size, max);
+        int option;
+        int matricula;
+        do {
             System.out.println("Digite 0 para parar o algoritmo!");
             System.out.println("Digite 1 para inserir um elemento!");
             System.out.println("Digite 2 para remover um elemento!");
@@ -35,30 +26,39 @@ public class Main {
                 System.out.println("Qual e a matrícula do aluno?");
                 matricula = scanner.nextInt();
                 Aluno aluno = new Aluno(matricula);
-                alunohash.insert(aluno);
+                if (alunohash.insert(aluno)) {
+                    System.out.println("Aluno inserido com sucesso.");
+                } else {
+                    System.out.println("Falha ao inserir o aluno.");
+                }
             } else if (option == 2) {
                 System.out.println("Qual é a matrícula do aluno a ser removida?");
                 matricula = scanner.nextInt();
                 Aluno aluno = new Aluno(matricula);
-                alunohash.delete(aluno);
-            } else if (option == 3) {
+                if (alunohash.delete(aluno)) {
+                    System.out.println("Aluno removido com sucesso.");
+                } else {
+                    System.out.println("Falha ao remover o aluno ou aluno não encontrado.");
+                }
+            }
+            if (option == 3) {
                 System.out.println("Qual é a matrícula do aluno a ser buscada?");
                 matricula = scanner.nextInt();
-                Aluno aluno = new Aluno(matricula);
-                int chave = alunohash.search(aluno.getMatricula()).getMatricula();
-                if (chave != -1) {
+                Aluno alunoToSearch = new Aluno(matricula);
+                Aluno foundAluno = alunohash.search(alunoToSearch);
+                if (foundAluno != null) {
+                    int chave = alunohash.getAlunoKey(foundAluno);
                     System.out.println("Aluno encontrado:");
-                    System.out.println("Matrícula: " + aluno.getMatricula());
+                    System.out.println("Matrícula: " + foundAluno.getMatricula());
                     System.out.println("Chave: " + chave);
                 } else {
                     System.out.println("Aluno não encontrado!");
                 }
-            } else if (option == 4) {
+            }
+            else if (option == 4) {
                 alunohash.print();
             }
-
-        } while (option != 0); // Fecha o loop do-while, que continuará até que a opção escolhida seja 0 (para sair).
-
-        scanner.close(); // Fecha o objeto Scanner para liberar recursos após a conclusão do programa.
+        } while (option != 0);
+        scanner.close();
     }
 }
