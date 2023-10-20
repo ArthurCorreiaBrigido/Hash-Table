@@ -22,7 +22,6 @@ public class Main {
 
         int option; // Declara uma variável option para armazenar a opção escolhida pelo usuário no menu.
         int matricula; // Declara uma variável matricula para armazenar a matrícula do aluno.
-        boolean[] s = new boolean[1]; //  Declara um array de booleanos s com um único elemento, que será usado para armazenar o resultado da busca.
 
         do { // Início de um loop do-while que continuará até que a opção escolhida seja 0 (para sair).
             System.out.println("Digite 0 para parar o algoritmo!");
@@ -46,10 +45,11 @@ public class Main {
                 System.out.println("Qual é a matrícula do aluno a ser buscada?");
                 matricula = scanner.nextInt();
                 Aluno aluno = new Aluno(matricula);
-                alunohash.search(aluno, s);
-                if (s[0]) {
+                int chave = alunohash.search(aluno);
+                if (chave != -1) {
                     System.out.println("Aluno encontrado:");
                     System.out.println("Matrícula: " + aluno.getMatricula());
+                    System.out.println("Chave: " + chave);
                 } else {
                     System.out.println("Aluno não encontrado!");
                 }
@@ -61,5 +61,4 @@ public class Main {
 
         scanner.close(); // Fecha o objeto Scanner para liberar recursos após a conclusão do programa.
     }
-
 }
