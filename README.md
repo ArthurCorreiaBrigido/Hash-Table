@@ -39,3 +39,7 @@ A aplicação demonstra o funcionamento de uma tabela Hash. O algoritmo é compo
 . Classe "Main": Responsável por criar, modificar e visualizar uma tabela hash de aluno. Nela são utilizadas todas as funções implementadas na aplicação: "insert", "search", "delete" e "print".
 
 ![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/b4ef9403-443c-4f75-b573-874333e70eca)
+
+. Classe "HashNode" : Foi a classe adicionada ao código com correções e representa um nó em uma estrutura de lista encadeada, utilizado no método de encadeamento para tratar colisões na tabela hash.
+
+![image](https://github.com/ArthurCorreiaBrigido/Hash-Table/assets/51636263/23d91e66-6ae4-41eb-8919-bca9e0a8e7f0)
