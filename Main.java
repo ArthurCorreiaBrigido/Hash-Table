@@ -45,7 +45,7 @@ public class Main {
                 System.out.println("Qual é a matrícula do aluno a ser buscada?");
                 matricula = scanner.nextInt();
                 Aluno aluno = new Aluno(matricula);
-                int chave = alunohash.search(aluno);
+                int chave = alunohash.search(aluno.getMatricula()).getMatricula();
                 if (chave != -1) {
                     System.out.println("Aluno encontrado:");
                     System.out.println("Matrícula: " + aluno.getMatricula());

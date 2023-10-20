@@ -5,6 +5,7 @@ public class Hash {
     private int quant_itens;
     private int max_itens;
     private HashNode[] structure;
+    private final int MAX_TRIES = 5;
 
     public Hash(int vector_size, int max) {
         quant_itens = 0;
@@ -14,76 +15,89 @@ public class Hash {
     }
 
     public boolean insert(Aluno aluno) {
-        return insert(aluno, hashFunc(aluno));
-    }
-
-    private boolean insert(Aluno aluno, int key) {
-        if (isFull()) {
-            return false;
-        }
-        while (structure[key] != null) {
+        int key = hashFunc(aluno);
+        for (int i = 0; i < MAX_TRIES; i++) {
+            if (structure[key] == null) {
+                structure[key] = new HashNode(key, aluno);
+                return true;
+            }
             key = (key + 1) % max_positions;
         }
-        structure[key] = new HashNode(key, aluno);
-        quant_itens++;
+        return insertInBucket(aluno, hashFunc(aluno));
+    }
+
+
+    private boolean insertInBucket(Aluno aluno, int key) {
+        if (structure[key] == null) {
+            structure[key] = new HashNode(key, aluno);
+            return true;
+        }
+        HashNode currentNode = structure[key];
+        while (currentNode.getNext() != null) {
+            currentNode = currentNode.getNext();
+        }
+        currentNode.setNext(new HashNode(key, aluno));
         return true;
     }
 
+
+    public Aluno search(int matricula) {
+        int key = hashFunc(new Aluno(matricula)); // Criamos um objeto temporário apenas para calcular a hash
+        for (int i = 0; i < MAX_TRIES; i++) {
+            if (structure[key] != null && structure[key].getValue().getMatricula() == matricula) {
+                return structure[key].getValue(); // Retorna o objeto Aluno encontrado
+            }
+            key = (key + 1) % max_positions;
+        }
+        return searchInBucket(matricula);
+    }
+
+    private Aluno searchInBucket(int matricula) {
+        int key = hashFunc(new Aluno(matricula)); // Criamos um objeto temporário apenas para calcular a hash
+        HashNode currentNode = structure[key];
+        while (currentNode != null) {
+            if (currentNode.getValue().getMatricula() == matricula) {
+                return currentNode.getValue(); // Retorna o objeto Aluno encontrado
+            }
+            currentNode = currentNode.getNext();
+        }
+        return null; // Retorna null se o aluno não foi encontrado
+    }
+
     public boolean delete(Aluno aluno) {
-        if (delete(hashFunc(aluno))) {
-            quant_itens--;
+        int key = hashFunc(aluno);
+        for (int i = 0; i < MAX_TRIES; i++) {
+            if (structure[key] != null && structure[key].getValue().getMatricula() == aluno.getMatricula()) {
+                structure[key] = null;
+                return true;
+            }
+            key = (key + 1) % max_positions;
+        }
+        return deleteInBucket(aluno, hashFunc(aluno));
+    }
+
+    private boolean deleteInBucket(Aluno aluno, int key) {
+        if (structure[key] == null) {
+            return false;
+        }
+        if (structure[key].getValue().getMatricula() == aluno.getMatricula()) {
+            structure[key] = structure[key].getNext();
             return true;
+        }
+        HashNode currentNode = structure[key];
+        while (currentNode.getNext() != null) {
+            if (currentNode.getNext().getValue().getMatricula() == aluno.getMatricula()) {
+                currentNode.setNext(currentNode.getNext().getNext());
+                return true;
+            }
+            currentNode = currentNode.getNext();
         }
         return false;
     }
 
-    private boolean delete(int key) {
-        if (key >= structure.length) {
-            return false;
-        }
-        HashNode currentNode = structure[key];
-        HashNode previousNode = null;
-        while (currentNode != null && currentNode.getKey() != key) {
-            previousNode = currentNode;
-            currentNode = currentNode.getNext();
-        }
-        if (currentNode == null) { // Chave não encontrada.
-            return false;
-        }
-        if (previousNode == null) { // Chave está no primeiro nó.
-            structure[key] = currentNode.getNext();
-        } else {
-            previousNode.setNext(currentNode.getNext());
-        }
-        quant_itens--; // Decrementa a quantidade de itens.
-        return true;
-    }
-
-    public int search(Aluno aluno) {
-        return search(hashFunc(aluno));
-    }
-
-    private int search(int key) {
-        int initialKey = key;
-        while (structure[key] != null) {
-            HashNode currentNode = structure[key];
-            while (currentNode != null) {
-                if (currentNode.getKey() == key) {
-                    return key;
-                }
-                currentNode = currentNode.getNext();
-            }
-            key = (key + 1) % max_positions;
-            if (key == initialKey) { // Já deu a volta completa na tabela.
-                break;
-            }
-        }
-        return -1; // Chave não encontrada.
-    }
-
     public void print() {
         System.out.println("Tabela Hash:");
-        for (int i = 0; i < structure.length; ++i) {
+        for (int i = 0; i < max_positions; ++i) {
             if (structure[i] != null) {
                 System.out.println(i + ": Matrícula: " + structure[i].getValue().getMatricula());
             } else {
